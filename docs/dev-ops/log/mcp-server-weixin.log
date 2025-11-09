@@ -1,0 +1,7 @@
+2025-10-05T10:03:48.185+08:00  INFO 7 --- [mcp-server-weixin] [main] c.b.m.s.weixin.McpServerApplication      : Starting McpServerApplication v1.0.0 using Java 17.0.2 with PID 7 (/mcp-server-weixin-app.jar started by root in /)
+2025-10-05T10:03:48.207+08:00  INFO 7 --- [mcp-server-weixin] [main] c.b.m.s.weixin.McpServerApplication      : No active profile set, falling back to 1 default profile: "default"
+2025-10-05T10:03:51.072+08:00  INFO 7 --- [mcp-server-weixin] [main] o.s.a.a.m.s.MpcServerAutoConfiguration   : Registered tools1 notification: true
+2025-10-05T10:03:51.515+08:00  INFO 7 --- [mcp-server-weixin] [main] o.s.b.web.embedded.netty.NettyWebServer  : Netty started on port 8102 (http)
+2025-10-05T10:03:51.536+08:00  INFO 7 --- [mcp-server-weixin] [main] c.b.m.s.weixin.McpServerApplication      : Started McpServerApplication in 4.156 seconds (process running for 5.581)
+2025-10-05T10:03:51.541+08:00  INFO 7 --- [mcp-server-weixin] [main] c.b.m.s.weixin.McpServerApplication      : check properties ...
+2025-10-05T10:03:51.541+08:00  INFO 7 --- [mcp-server-weixin] [main] c.b.m.s.weixin.McpServerApplication      : weixin properties key wx5a228ff69e28a91f
