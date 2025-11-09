@@ -9,10 +9,7 @@
 
   const queryApi = new URLSearchParams(location.search).get('api');
   const API_CANDIDATES = [
-    queryApi,
-    'http://localhost:8091/trigger',
     'http://localhost:8901/trigger',
-    'http://localhost:8080/trigger',
   ].filter(Boolean);
   let API_BASE = API_CANDIDATES[0];
   const state = {

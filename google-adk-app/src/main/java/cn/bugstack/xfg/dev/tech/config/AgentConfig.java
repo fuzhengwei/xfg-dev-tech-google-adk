@@ -8,10 +8,14 @@ import com.google.adk.tools.mcp.McpTool;
 import com.google.adk.tools.mcp.McpToolset;
 import com.google.genai.Client;
 import com.google.genai.types.HttpOptions;
+import io.modelcontextprotocol.client.McpClient;
+import io.modelcontextprotocol.client.McpSyncClient;
+import io.modelcontextprotocol.client.transport.HttpClientSseClientTransport;
 import io.modelcontextprotocol.client.transport.ServerParameters;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.time.Duration;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
