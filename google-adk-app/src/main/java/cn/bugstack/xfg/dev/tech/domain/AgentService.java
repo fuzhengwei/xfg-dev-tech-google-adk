@@ -30,7 +30,7 @@ public class AgentService {
         return userSessions.computeIfAbsent(userId, uid -> {
             Session session = runner
                     .sessionService()
-                    .createSession(NAME, uid)
+                    .createSession(NAME, userId)
                     .blockingGet();
             return session.id();
         });
@@ -43,4 +43,5 @@ public class AgentService {
         events.blockingForEach(event -> outputs.add(event.stringifyContent()));
         return outputs;
     }
+
 }

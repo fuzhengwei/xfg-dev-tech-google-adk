@@ -16,7 +16,7 @@ public class AgentConfig {
                 .name("multi_tool_agent")
                 .model("gemini-2.0-flash")
                 .description("Interactive service agent for engineering tasks.")
-                .tools(Collections.emptyList())
+//                .tools(Collections.emptyList())
                 .build();
     }
 }
