@@ -1,14 +1,15 @@
 server:
   port: 8901
 
+# 可申请API秘钥；https://ai.google.dev/gemini-api
+google:
+  api:
+    base-url: https://generativelanguage.googleapis.com
+    key: AIzaSyDF6JnvFx7xWEsARSGosNmvTU3ZoCwo-mc
+  cloud:
+    project: xfg-google-adk
+
 logging:
   level:
     root: info
   config: classpath:logback-spring.xml
-
-# Google ADK Configuration
-google:
-  api:
-    key: AIzaSyDF6JnvFx7xWEsARSGosNmvTU3ZoCwo
-  cloud:
-    project: xfg-google-adk

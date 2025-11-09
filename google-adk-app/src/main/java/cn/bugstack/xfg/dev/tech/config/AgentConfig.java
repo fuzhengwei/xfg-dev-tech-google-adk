@@ -8,19 +8,22 @@ import com.google.adk.tools.mcp.McpTool;
 import com.google.adk.tools.mcp.McpToolset;
 import com.google.genai.Client;
 import com.google.genai.types.HttpOptions;
-import io.modelcontextprotocol.client.McpClient;
-import io.modelcontextprotocol.client.McpSyncClient;
-import io.modelcontextprotocol.client.transport.HttpClientSseClientTransport;
 import io.modelcontextprotocol.client.transport.ServerParameters;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.time.Duration;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
 @Configuration
 public class AgentConfig {
+
+    @Value("${google.api.base-url}")
+    private String baseUrl;
+
+    @Value("${google.api.key}")
+    private String apiKey;
 
     private String prompt = """
                                  You are an interactive CLI tool that helps users with software engineering tasks. Use the instructions below and the tools available to you to assist the user.
@@ -268,10 +271,10 @@ public class AgentConfig {
                 .tools(mcpTools)
                 .model(Gemini.builder()
                         .apiClient(Client.builder()
-                                .apiKey("AIzaSyDF6JnvFx7xWEsARSGosNmvTU3ZoCwo-mc")
+                                .apiKey(apiKey)
                                 .httpOptions(HttpOptions
                                         .builder()
-                                        .baseUrl("https://generativelanguage.googleapis.com")
+                                        .baseUrl(baseUrl)
                                         .timeout(500000)
                                         .build())
                                 .build())

@@ -19,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -30,6 +31,12 @@ import java.util.concurrent.CompletableFuture;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class AutoAgentTest {
+
+    @Value("${google.api.base-url}")
+    private String baseUrl;
+
+    @Value("${google.api.key}")
+    private String apiKey;
 
     private static final String USER_ID = "xiaofuge";
     private static final String NAME = "multi_tool_agent";
@@ -46,10 +53,10 @@ public class AutoAgentTest {
                 .name(NAME)
                 .model(Gemini.builder()
                         .apiClient(Client.builder()
-                                .apiKey("AIzaSyDF6JnvFx7xWEsARSGosNmvTU3ZoCwo-mc")
+                                .apiKey(apiKey)
                                 .httpOptions(HttpOptions
                                         .builder()
-                                        .baseUrl("https://generativelanguage.googleapis.com")
+                                        .baseUrl(baseUrl)
                                         .timeout(500000)
                                         .build())
                                 .build())

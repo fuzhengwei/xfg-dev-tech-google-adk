@@ -1,256 +1,40 @@
-This guide shows you how to get up and running with Agent Development Kit for Java. Before you start, make sure you have the following installed:
-本指南将向您展示如何快速上手使用 Java 代理开发工具包 (Agent Development Kit for Java)。开始之前，请确保已安装以下软件：
+# Google Agent ADK，智能体也有现成的框架了！
 
-- Java 17 or later
-  Java 17 或更高版本
-- Maven 3.9 or later
-  Maven 3.9 或更高版本
+作者：小傅哥
+<br/>博客：[https://bugstack.cn](https://bugstack.cn)
 
-## Create an agent project[¶](https://google.github.io/adk-docs/get-started/java/#create-an-agent-project) 创建代理项目 [¶](https://google.github.io/adk-docs/get-started/java/#create-an-agent-project)
+> 沉淀、分享、成长，让自己和他人都能有所收获！😄
 
-Create an agent project with the following files and directory structure:
-创建一个代理项目，包含以下文件和目录结构：
+大家好，我是技术UP主小傅哥。
 
-```
-my_agent/
-    src/main/java/com/example/agent/
-                        HelloTimeAgent.java # main agent code
-                        AgentCliRunner.java # command-line interface
-    pom.xml                                 # project configuration
-    .env                                    # API keys or project IDs
-```
+💐 从22年至今，小傅哥已经带着大家做了5个AI类项目，包括；`（22年）问答助手`、`（23年）OpenAI应用（含支付、敏感词过滤）`、`（24年）AI 代码自动评审`、`（25年）Ai Agent 智能体`、`（25年）Ai MCP Gateway 网关`。
 
-<details class="tip" style="box-sizing: inherit; background-color: rgb(255, 255, 255); border: 0.075rem solid rgb(0, 191, 165); border-radius: 0.2rem; box-shadow: none; color: rgba(0, 0, 0, 0.87); display: flow-root; font-size: 0.64rem; margin: 1.5625em 0px; padding: 0px 0.6rem; break-inside: avoid; transition: box-shadow 125ms; overflow: visible; font-family: &quot;Google Sans&quot;, -apple-system, &quot;system-ui&quot;, Helvetica, Arial, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"><summary style="box-sizing: border-box; background-color: rgba(0, 191, 165, 0.1); border-top: none; border-right: none; border-bottom: none; border-left: 0.2rem none; border-image: initial; font-weight: 700; margin: 0px -0.6rem; padding: 0.4rem 1.8rem 0.4rem 2rem; position: relative; cursor: pointer; display: block; min-height: 1rem; overflow: hidden; border-radius: 0.1rem; -webkit-tap-highlight-color: transparent; outline: none;">Create this project structure using the command line<font class="notranslate immersive-translate-target-wrapper" lang="zh-CN" style="box-sizing: inherit;"><br style="box-sizing: inherit;"><font class="notranslate immersive-translate-target-translation-theme-none immersive-translate-target-translation-block-wrapper-theme-none immersive-translate-target-translation-block-wrapper" data-immersive-translate-translation-element-mark="1" style="box-sizing: inherit;"><font class="notranslate immersive-translate-target-inner immersive-translate-target-translation-theme-none-inner" data-immersive-translate-translation-element-mark="1" style="box-sizing: inherit;">使用命令行创建此项目结构</font></font></font></summary><div class="tabbed-set tabbed-alternate" data-tabs="1:2" style="box-sizing: border-box; border-radius: 0.1rem; display: flex; flex-flow: column wrap; margin: 1em 0px 0.6rem; position: relative; --md-indicator-x: 0px; --md-indicator-width: 97px;"><input checked="checked" id="windows" name="__tabbed_1" type="radio" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; border: 0px; outline: none; font-feature-settings: &quot;kern&quot;, &quot;liga&quot;; color: rgba(0, 0, 0, 0.87); font-family: &quot;Google Sans&quot;, -apple-system, &quot;system-ui&quot;, Helvetica, Arial, sans-serif; height: 0px; opacity: 0; position: absolute; width: 0px;"><input id="macos--linux" name="__tabbed_1" type="radio" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; border: 0px; outline: none; font-feature-settings: &quot;kern&quot;, &quot;liga&quot;; color: rgba(0, 0, 0, 0.87); font-family: &quot;Google Sans&quot;, -apple-system, &quot;system-ui&quot;, Helvetica, Arial, sans-serif; height: 0px; opacity: 0; position: absolute; width: 0px;"><div class="tabbed-labels tabbed-labels--linked" style="box-sizing: inherit; box-shadow: rgba(0, 0, 0, 0.07) 0px -1.1px 0px 0px inset; display: flex; max-width: 100%; overflow: auto; scrollbar-width: none; position: relative;"><label for="windows" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; border-bottom: 0.1rem solid rgba(0, 0, 0, 0); border-radius: 0.1rem 0.1rem 0px 0px; color: rgba(0, 0, 0, 0.87); cursor: pointer; flex-shrink: 0; font-size: 0.64rem; font-weight: 700; padding: 0px; scroll-margin-inline-start: 1rem; transition: background-color 0.25s, color 0.25s; white-space: nowrap; width: auto;"><a href="https://google.github.io/adk-docs/get-started/java/#windows" tabindex="-1" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: inherit; text-decoration: none; word-break: break-word; transition: color 125ms; display: block; padding: 0.78125em 1.25em 0.625em;">Windows</a></label><label for="macos--linux" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; border-bottom: 0.1rem solid rgba(0, 0, 0, 0); border-radius: 0.1rem 0.1rem 0px 0px; color: rgba(0, 0, 0, 0.54); cursor: pointer; flex-shrink: 0; font-size: 0.64rem; font-weight: 700; padding: 0px; scroll-margin-inline-start: 1rem; transition: background-color 0.25s, color 0.25s; white-space: nowrap; width: auto;"><a href="https://google.github.io/adk-docs/get-started/java/#macos--linux" tabindex="-1" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: inherit; text-decoration: none; word-break: break-word; transition: color 125ms; display: block; padding: 0.78125em 1.25em 0.625em;">MacOS / Linux</a></label></div><div class="tabbed-content" style="box-sizing: inherit; width: 767.82px;"><div class="tabbed-block" style="box-sizing: inherit; display: block;"><div class="language-console highlight" style="box-sizing: inherit;"><pre id="__code_32" style="box-sizing: inherit; font-feature-settings: &quot;kern&quot;; font-family: &quot;Roboto Mono&quot;, SFMono-Regular, Consolas, Menlo, monospace; margin: 0px; color: rgb(54, 70, 78); direction: ltr; font-variant-ligatures: none; display: flow-root; line-height: 1.4; position: relative;"><span style="box-sizing: inherit;"></span><button class="md-clipboard md-icon" title="Copy to clipboard" data-clipboard-target="#__code_32 > code" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; background: rgba(0, 0, 0, 0); border: 0px; font-family: inherit; font-size: inherit; margin: 0px; padding: 0px; border-radius: 0.1rem; color: rgba(0, 0, 0, 0.07); cursor: pointer; height: 1.5em; outline: none; outline-offset: 0.1rem; position: absolute; right: 0.5em; top: 0.5em; transition: color 0.25s; width: 1.5em; z-index: 1;"></button><code class="md-code__content" style="box-sizing: inherit; font-feature-settings: &quot;kern&quot;; font-family: &quot;Roboto Mono&quot;, SFMono-Regular, Consolas, Menlo, monospace; color: rgb(54, 70, 78); direction: ltr; font-variant-ligatures: none; background-color: rgb(245, 245, 245); border-radius: 0px 0px 0.1rem 0.1rem; -webkit-box-decoration-break: slice; box-decoration-break: slice; font-size: 0.85em; padding: 0.772059em 1.17647em; word-break: normal; box-shadow: none; display: grid; margin: 0px; outline: none; overflow: auto; scrollbar-color: rgba(0, 0, 0, 0.32) rgba(0, 0, 0, 0); scrollbar-width: thin; touch-action: auto; -webkit-tap-highlight-color: transparent;"><span id="__span-1-1" style="box-sizing: inherit;"><a id="__codelineno-1-1" name="__codelineno-1-1" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-1-1" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a><span class="go" style="box-sizing: inherit; color: rgba(0, 0, 0, 0.54);">mkdir my_agent\src\main\java\com\example\agent</span>
-</span><span id="__span-1-2" style="box-sizing: inherit;"><a id="__codelineno-1-2" name="__codelineno-1-2" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-1-2" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a><span class="go" style="box-sizing: inherit; color: rgba(0, 0, 0, 0.54);">type nul &gt; my_agent\src\main\java\com\example\agent\HelloTimeAgent.java</span>
-</span><span id="__span-1-3" style="box-sizing: inherit;"><a id="__codelineno-1-3" name="__codelineno-1-3" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-1-3" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a><span class="go" style="box-sizing: inherit; color: rgba(0, 0, 0, 0.54);">type nul &gt; my_agent\src\main\java\com\example\agent\AgentCliRunner.java</span>
-</span><span id="__span-1-4" style="box-sizing: inherit;"><a id="__codelineno-1-4" name="__codelineno-1-4" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-1-4" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a><span class="go" style="box-sizing: inherit; color: rgba(0, 0, 0, 0.54);">type nul &gt; my_agent\pom.xml</span>
-</span><span id="__span-1-5" style="box-sizing: inherit;"><a id="__codelineno-1-5" name="__codelineno-1-5" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-1-5" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a><span class="go" style="box-sizing: inherit; color: rgba(0, 0, 0, 0.54);">type nul &gt; my_agent\.env</span>
-</span></code></pre></div></div></div><div class="tabbed-control tabbed-control--prev" hidden="" style="box-sizing: inherit; background: linear-gradient(to right, rgb(255, 255, 255) 60%, rgba(0, 0, 0, 0)) 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); display: flex; height: 1.9rem; justify-content: start; pointer-events: none; position: absolute; transition: opacity 125ms; width: 1.2rem; opacity: 0;"><button class="tabbed-button" tabindex="-1" aria-hidden="true" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; background: rgba(0, 0, 0, 0); border: 0px; font-family: inherit; font-size: inherit; margin: 0.1rem 0px 0px; padding: 0px; align-self: center; border-radius: 100%; color: rgba(0, 0, 0, 0.54); cursor: pointer; display: block; height: 0.9rem; pointer-events: auto; transition: background-color 0.25s; width: 0.9rem;"></button></div><div class="tabbed-control tabbed-control--next" hidden="" style="box-sizing: inherit; background: linear-gradient(to left, rgb(255, 255, 255) 60%, rgba(0, 0, 0, 0)) 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0); display: flex; height: 1.9rem; justify-content: end; pointer-events: none; position: absolute; transition: opacity 125ms; width: 1.2rem; right: 0px; opacity: 0;"><button class="tabbed-button" tabindex="-1" aria-hidden="true" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; background: rgba(0, 0, 0, 0); border: 0px; font-family: inherit; font-size: inherit; margin: 0.1rem 0px 0px; padding: 0px; align-self: center; border-radius: 100%; color: rgba(0, 0, 0, 0.54); cursor: pointer; display: block; height: 0.9rem; pointer-events: auto; transition: background-color 0.25s; width: 0.9rem;"></button></div></div></details>
+这些项目也都是结合这，AI 这一年最新的技术动向和应用方向，而做的设计和落地。所以，每次小傅哥都给大家讲了，接下来 AI 将影响的一些场景，也都陆续的发生了。就像，24年11月发布 MCP 协议后，我给大家说，所有互联网企业都将大量的落地 MCP 服务，并开始 Ai Agent 智能体实现（别看市面有 dify、扣子，各个且用还是要做自己的业务智能体）。
 
-### Define the agent code[¶](https://google.github.io/adk-docs/get-started/java/#define-the-agent-code) 定义代理代码 [¶](https://google.github.io/adk-docs/get-started/java/#define-the-agent-code)
+随后，25年年初，小傅哥就带着大家开始了 RAG、MCP、Ai Agent 智能体的开发，并告诉大家，以后 Ai Agent 智能体也会出标准的框架，让开发更加容易。这不，**谷歌的 ADK 就来了**。并且这哥们👬🏻还定义A2A协议。这会让不是那么大型的互联网公司，也会具备 Ai Agent 智能体开发的能力。
 
-Create the code for a basic agent, including a simple implementation of an ADK [Function Tool](https://google.github.io/adk-docs/tools/function-tools/), called `getCurrentTime()`. Add the following code to the `HelloTimeAgent.java` file in your project directory:
-为基本代理编写代码，包括 ADK 的简单实现。 [函数工具](https://google.github.io/adk-docs/tools/function-tools/)名为 `getCurrentTime()` 。将以下代码添加到项目目录中的 `HelloTimeAgent.java` 文件中：
+接下来的几年，所有的业务项目，都会以 Ai Agent 智能体翻一遍，程序员新增的岗位和工作量仍然会很多。因为在咱们这，你做的越快，你就得做的越多！
 
-**my_agent/src/main/java/com/example/agent/HelloTimeAgent.java**
+>接下来，小傅哥就带着大家做一下 Google ADK 搭建 AI Agent。如果你感兴趣 AI 类项目，还可以在文末获取全部实战项目源码，深度积累此类技术内容。
 
-```
-package com.example.agent;
+## 一、官网资料
 
-import com.google.adk.agents.BaseAgent;
-import com.google.adk.agents.LlmAgent;
-import com.google.adk.tools.Annotations.Schema;
-import com.google.adk.tools.FunctionTool;
+官网：[https://google.github.io/adk-docs/](https://google.github.io/adk-docs/)
 
-import java.util.Map;
+<div align="center">
+    <img src="/Users/fuzhengwei/Desktop/road-map-google-adk-01.png" width="750px">
+</div>
+- ADK 以轻便化构建 Ai Agent 智能体，解决智能体开发的复杂流程而设计。目前支持 Python、Java、Go 3种语言对应的技术框架。
+- 整个文档完整的描述了，智能体的创建和运行、工具的调用（tools、function、mcp）、可观测性以及 A2A 协议等。
 
-public class HelloTimeAgent {
+## 二、工程实践
 
-    public static BaseAgent ROOT_AGENT = initAgent();
+### 1. 前置说明
 
-    private static BaseAgent initAgent() {
-        return LlmAgent.builder()
-            .name("hello-time-agent")
-            .description("Tells the current time in a specified city")
-            .instruction("""
-                You are a helpful assistant that tells the current time in a city.
-                Use the 'getCurrentTime' tool for this purpose.
-                """)
-            .model("gemini-2.5-flash")
-            .tools(FunctionTool.create(HelloTimeAgent.class, "getCurrentTime"))
-            .build();
-    }
+本次的 Ai Agent 实践，是以 Google ADK 框架为基础，配和 Github [system-prompts-and-models-of-ai-tools](https://github.com/x1xhlol/system-prompts-and-models-of-ai-tools) 开源提示词项目中的 claude-code-system-prompt 作为必要描述。来实验，ELK 系统日志智能分析场景。
 
-    /** Mock tool implementation */
-    @Schema(description = "Get the current time for a given city")
-    public static Map<String, String> getCurrentTime(
-        @Schema(name = "city", description = "Name of the city to get the time for") String city) {
-        return Map.of(
-            "city", city,
-            "forecast", "The time is 10:30am."
-        );
-    }
-}
-```
+- API Key：[https://ai.google.dev/gemini-api](https://ai.google.dev/gemini-api) 需要申请开发 API 秘钥，是免费的。
+- Docker 环境，本项目部署了一套 ELK 日志服务，基于 Docker 部署，之后对 ELK 模拟写入日志，让 Ai Agent 智能体进行分析。`如果暂时配置不了，可以在测试的时候去掉这部分 mcp 服务`
+- `JDK 17+`、`Maven 3.8.x`
 
-### Configure project and dependencies[¶](https://google.github.io/adk-docs/get-started/java/#configure-project-and-dependencies) 配置项目和依赖项 [¶](https://google.github.io/adk-docs/get-started/java/#configure-project-and-dependencies)
-
-An ADK agent project requires this dependency in your `pom.xml` project file:
-ADK 代理项目需要此依赖项。 `pom.xml` 项目文件：
-
-**my_agent/pom.xml (partial)
-my_agent/pom.xml（部分）**
-
-```
-<dependencies>
-    <dependency>
-        <groupId>com.google.adk</groupId>
-        <artifactId>adk-core</artifactId>
-        <version>0.3.0</version>
-    </dependency>
-</dependencies>
-```
-
-Update the `pom.xml` project file to include this dependency and addtional settings with the following configuration code:
-更新 `pom.xml` 项目文件，添加以下配置代码，以包含此依赖项和其他设置：
-
-<details class="info" style="box-sizing: inherit; background-color: rgb(255, 255, 255); border: 0.075rem solid rgb(0, 184, 212); border-radius: 0.2rem; box-shadow: none; color: rgba(0, 0, 0, 0.87); display: flow-root; font-size: 0.64rem; margin: 1.5625em 0px; padding: 0px 0.6rem; break-inside: avoid; transition: box-shadow 125ms; overflow: visible; font-family: &quot;Google Sans&quot;, -apple-system, &quot;system-ui&quot;, Helvetica, Arial, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"><summary style="box-sizing: border-box; background-color: rgba(0, 184, 212, 0.1); border-top: none; border-right: none; border-bottom: none; border-left: 0.2rem none; border-image: initial; font-weight: 700; margin: 0px -0.6rem; padding: 0.4rem 1.8rem 0.4rem 2rem; position: relative; cursor: pointer; display: block; min-height: 1rem; overflow: hidden; border-radius: 0.1rem; -webkit-tap-highlight-color: transparent; outline: none;">Complete<span>&nbsp;</span><code style="box-sizing: inherit; font-feature-settings: &quot;kern&quot;; font-family: &quot;Roboto Mono&quot;, SFMono-Regular, Consolas, Menlo, monospace; color: rgb(54, 70, 78); direction: ltr; font-variant-ligatures: none; background-color: rgb(245, 245, 245); border-radius: 0.1rem; -webkit-box-decoration-break: clone; box-decoration-break: clone; font-size: 0.85em; padding: 0px 0.294118em; word-break: break-word; box-shadow: rgba(0, 0, 0, 0.07) 0px 0px 0px 1.1px; -webkit-tap-highlight-color: transparent; outline: none;">pom.xml</code><span>&nbsp;</span>configuration for project<font class="notranslate immersive-translate-target-wrapper" lang="zh-CN" style="box-sizing: inherit;"><br style="box-sizing: inherit;"><font class="notranslate immersive-translate-target-translation-theme-none immersive-translate-target-translation-block-wrapper-theme-none immersive-translate-target-translation-block-wrapper" data-immersive-translate-translation-element-mark="1" style="box-sizing: inherit;"><font class="notranslate immersive-translate-target-inner immersive-translate-target-translation-theme-none-inner" data-immersive-translate-translation-element-mark="1" style="box-sizing: inherit;">项目的完整<span>&nbsp;</span><code style="box-sizing: inherit; font-feature-settings: &quot;kern&quot;; font-family: &quot;Roboto Mono&quot;, SFMono-Regular, Consolas, Menlo, monospace; color: rgb(54, 70, 78); direction: ltr; font-variant-ligatures: none; background-color: rgb(245, 245, 245); border-radius: 0.1rem; -webkit-box-decoration-break: clone; box-decoration-break: clone; font-size: 0.85em; padding: 0px 0.294118em; word-break: break-word; box-shadow: rgba(0, 0, 0, 0.07) 0px 0px 0px 1.1px; -webkit-tap-highlight-color: transparent; outline: none;">pom.xml</code><span>&nbsp;</span>配置</font></font></font></summary><p style="box-sizing: border-box;">The following code shows a complete<span>&nbsp;</span><code style="box-sizing: inherit; font-feature-settings: &quot;kern&quot;; font-family: &quot;Roboto Mono&quot;, SFMono-Regular, Consolas, Menlo, monospace; color: rgb(54, 70, 78); direction: ltr; font-variant-ligatures: none; background-color: rgb(245, 245, 245); border-radius: 0.1rem; -webkit-box-decoration-break: clone; box-decoration-break: clone; font-size: 0.85em; padding: 0px 0.294118em; word-break: break-word; -webkit-tap-highlight-color: transparent; outline: none;">pom.xml</code><span>&nbsp;</span>configuration for this project:</p><div class="language-xml highlight" style="box-sizing: border-box; margin-bottom: 0.6rem;"><span class="filename" style="box-sizing: inherit; background-color: rgb(245, 245, 245); border-bottom: 1px solid rgba(0, 0, 0, 0.07); border-top-left-radius: 0.1rem; border-top-right-radius: 0.1rem; display: flow-root; font-size: 0.85em; font-weight: 700; margin-top: 1em; padding: 0.661765em 1.17647em; position: relative;">my_agent/pom.xml</span><pre id="__code_36" style="box-sizing: inherit; font-feature-settings: &quot;kern&quot;; font-family: &quot;Roboto Mono&quot;, SFMono-Regular, Consolas, Menlo, monospace; margin-bottom: 1em; margin-top: 0px; color: rgb(54, 70, 78); direction: ltr; font-variant-ligatures: none; display: flow-root; line-height: 1.4; position: relative;"><span style="box-sizing: inherit;"></span><button class="md-clipboard md-icon" title="Copy to clipboard" data-clipboard-target="#__code_36 > code" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; background: rgba(0, 0, 0, 0); border: 0px; font-family: inherit; font-size: inherit; margin: 0px; padding: 0px; border-radius: 0.1rem; color: rgba(0, 0, 0, 0.07); cursor: pointer; height: 1.5em; outline: none; outline-offset: 0.1rem; position: absolute; right: 0.5em; top: 0.5em; transition: color 0.25s; width: 1.5em; z-index: 1;"></button><code class="md-code__content" tabindex="0" style="box-sizing: inherit; font-feature-settings: &quot;kern&quot;; font-family: &quot;Roboto Mono&quot;, SFMono-Regular, Consolas, Menlo, monospace; color: rgb(54, 70, 78); direction: ltr; font-variant-ligatures: none; background-color: rgb(245, 245, 245); border-radius: 0px 0px 0.1rem 0.1rem; -webkit-box-decoration-break: slice; box-decoration-break: slice; font-size: 0.85em; padding: 0.772059em 1.17647em; word-break: normal; box-shadow: none; display: grid; margin: 0px; outline: none; overflow: auto; scrollbar-color: rgba(0, 0, 0, 0.32) rgba(0, 0, 0, 0); scrollbar-width: thin; touch-action: auto; -webkit-tap-highlight-color: transparent;"><span id="__span-5-1" style="box-sizing: inherit;"><a id="__codelineno-5-1" name="__codelineno-5-1" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-5-1" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a><span class="cp" style="box-sizing: inherit; color: rgb(219, 20, 87);">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
-</span><span id="__span-5-2" style="box-sizing: inherit;"><a id="__codelineno-5-2" name="__codelineno-5-2" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-5-2" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a><span class="nt" style="box-sizing: inherit; color: rgb(63, 110, 198);">&lt;project</span><span class="w" style="box-sizing: inherit;"> </span><span class="na" style="box-sizing: inherit; color: rgba(0, 0, 0, 0.54);">xmlns=</span><span class="s" style="box-sizing: inherit; color: rgb(28, 125, 77);">"http://maven.apache.org/POM/4.0.0"</span>
-</span><span id="__span-5-3" style="box-sizing: inherit;"><a id="__codelineno-5-3" name="__codelineno-5-3" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-5-3" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a><span class="w" style="box-sizing: inherit;">        </span><span class="na" style="box-sizing: inherit; color: rgba(0, 0, 0, 0.54);">xmlns:xsi=</span><span class="s" style="box-sizing: inherit; color: rgb(28, 125, 77);">"http://www.w3.org/2001/XMLSchema-instance"</span>
-</span><span id="__span-5-4" style="box-sizing: inherit;"><a id="__codelineno-5-4" name="__codelineno-5-4" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-5-4" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a><span class="w" style="box-sizing: inherit;">        </span><span class="na" style="box-sizing: inherit; color: rgba(0, 0, 0, 0.54);">xsi:schemaLocation=</span><span class="s" style="box-sizing: inherit; color: rgb(28, 125, 77);">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span><span class="nt" style="box-sizing: inherit; color: rgb(63, 110, 198);">&gt;</span>
-</span><span id="__span-5-5" style="box-sizing: inherit;"><a id="__codelineno-5-5" name="__codelineno-5-5" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-5-5" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a><span class="w" style="box-sizing: inherit;">    </span><span class="nt" style="box-sizing: inherit; color: rgb(63, 110, 198);">&lt;modelVersion&gt;</span>4.0.0<span class="nt" style="box-sizing: inherit; color: rgb(63, 110, 198);">&lt;/modelVersion&gt;</span>
-</span><span id="__span-5-6" style="box-sizing: inherit;"><a id="__codelineno-5-6" name="__codelineno-5-6" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-5-6" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a>
-</span><span id="__span-5-7" style="box-sizing: inherit;"><a id="__codelineno-5-7" name="__codelineno-5-7" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-5-7" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a><span class="w" style="box-sizing: inherit;">    </span><span class="nt" style="box-sizing: inherit; color: rgb(63, 110, 198);">&lt;groupId&gt;</span>com.example.agent<span class="nt" style="box-sizing: inherit; color: rgb(63, 110, 198);">&lt;/groupId&gt;</span>
-</span><span id="__span-5-8" style="box-sizing: inherit;"><a id="__codelineno-5-8" name="__codelineno-5-8" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-5-8" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a><span class="w" style="box-sizing: inherit;">    </span><span class="nt" style="box-sizing: inherit; color: rgb(63, 110, 198);">&lt;artifactId&gt;</span>adk-agents<span class="nt" style="box-sizing: inherit; color: rgb(63, 110, 198);">&lt;/artifactId&gt;</span>
-</span><span id="__span-5-9" style="box-sizing: inherit;"><a id="__codelineno-5-9" name="__codelineno-5-9" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-5-9" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a><span class="w" style="box-sizing: inherit;">    </span><span class="nt" style="box-sizing: inherit; color: rgb(63, 110, 198);">&lt;version&gt;</span>1.0-SNAPSHOT<span class="nt" style="box-sizing: inherit; color: rgb(63, 110, 198);">&lt;/version&gt;</span>
-</span><span id="__span-5-10" style="box-sizing: inherit;"><a id="__codelineno-5-10" name="__codelineno-5-10" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-5-10" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a>
-</span><span id="__span-5-11" style="box-sizing: inherit;"><a id="__codelineno-5-11" name="__codelineno-5-11" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-5-11" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a><span class="w" style="box-sizing: inherit;">    </span><span class="cm" style="box-sizing: inherit; color: rgba(0, 0, 0, 0.54);">&lt;!-- Specify the version of Java you'll be using --&gt;</span>
-</span><span id="__span-5-12" style="box-sizing: inherit;"><a id="__codelineno-5-12" name="__codelineno-5-12" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-5-12" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a><span class="w" style="box-sizing: inherit;">    </span><span class="nt" style="box-sizing: inherit; color: rgb(63, 110, 198);">&lt;properties&gt;</span>
-</span><span id="__span-5-13" style="box-sizing: inherit;"><a id="__codelineno-5-13" name="__codelineno-5-13" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-5-13" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a><span class="w" style="box-sizing: inherit;">        </span><span class="nt" style="box-sizing: inherit; color: rgb(63, 110, 198);">&lt;maven.compiler.source&gt;</span>17<span class="nt" style="box-sizing: inherit; color: rgb(63, 110, 198);">&lt;/maven.compiler.source&gt;</span>
-</span><span id="__span-5-14" style="box-sizing: inherit;"><a id="__codelineno-5-14" name="__codelineno-5-14" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-5-14" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a><span class="w" style="box-sizing: inherit;">        </span><span class="nt" style="box-sizing: inherit; color: rgb(63, 110, 198);">&lt;maven.compiler.target&gt;</span>17<span class="nt" style="box-sizing: inherit; color: rgb(63, 110, 198);">&lt;/maven.compiler.target&gt;</span>
-</span><span id="__span-5-15" style="box-sizing: inherit;"><a id="__codelineno-5-15" name="__codelineno-5-15" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-5-15" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a><span class="w" style="box-sizing: inherit;">        </span><span class="nt" style="box-sizing: inherit; color: rgb(63, 110, 198);">&lt;project.build.sourceEncoding&gt;</span>UTF-8<span class="nt" style="box-sizing: inherit; color: rgb(63, 110, 198);">&lt;/project.build.sourceEncoding&gt;</span>
-</span><span id="__span-5-16" style="box-sizing: inherit;"><a id="__codelineno-5-16" name="__codelineno-5-16" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-5-16" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a><span class="w" style="box-sizing: inherit;">    </span><span class="nt" style="box-sizing: inherit; color: rgb(63, 110, 198);">&lt;/properties&gt;</span>
-</span><span id="__span-5-17" style="box-sizing: inherit;"><a id="__codelineno-5-17" name="__codelineno-5-17" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-5-17" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a>
-</span><span id="__span-5-18" style="box-sizing: inherit;"><a id="__codelineno-5-18" name="__codelineno-5-18" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-5-18" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a><span class="w" style="box-sizing: inherit;">    </span><span class="nt" style="box-sizing: inherit; color: rgb(63, 110, 198);">&lt;dependencies&gt;</span>
-</span><span id="__span-5-19" style="box-sizing: inherit;"><a id="__codelineno-5-19" name="__codelineno-5-19" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-5-19" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a><span class="w" style="box-sizing: inherit;">        </span><span class="cm" style="box-sizing: inherit; color: rgba(0, 0, 0, 0.54);">&lt;!-- The ADK core dependency --&gt;</span>
-</span><span id="__span-5-20" style="box-sizing: inherit;"><a id="__codelineno-5-20" name="__codelineno-5-20" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-5-20" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a><span class="w" style="box-sizing: inherit;">        </span><span class="nt" style="box-sizing: inherit; color: rgb(63, 110, 198);">&lt;dependency&gt;</span>
-</span><span id="__span-5-21" style="box-sizing: inherit;"><a id="__codelineno-5-21" name="__codelineno-5-21" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-5-21" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a><span class="w" style="box-sizing: inherit;">            </span><span class="nt" style="box-sizing: inherit; color: rgb(63, 110, 198);">&lt;groupId&gt;</span>com.google.adk<span class="nt" style="box-sizing: inherit; color: rgb(63, 110, 198);">&lt;/groupId&gt;</span>
-</span><span id="__span-5-22" style="box-sizing: inherit;"><a id="__codelineno-5-22" name="__codelineno-5-22" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-5-22" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a><span class="w" style="box-sizing: inherit;">            </span><span class="nt" style="box-sizing: inherit; color: rgb(63, 110, 198);">&lt;artifactId&gt;</span>google-adk<span class="nt" style="box-sizing: inherit; color: rgb(63, 110, 198);">&lt;/artifactId&gt;</span>
-</span><span id="__span-5-23" style="box-sizing: inherit;"><a id="__codelineno-5-23" name="__codelineno-5-23" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-5-23" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a><span class="w" style="box-sizing: inherit;">            </span><span class="nt" style="box-sizing: inherit; color: rgb(63, 110, 198);">&lt;version&gt;</span>0.3.0<span class="nt" style="box-sizing: inherit; color: rgb(63, 110, 198);">&lt;/version&gt;</span>
-</span><span id="__span-5-24" style="box-sizing: inherit;"><a id="__codelineno-5-24" name="__codelineno-5-24" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-5-24" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a><span class="w" style="box-sizing: inherit;">        </span><span class="nt" style="box-sizing: inherit; color: rgb(63, 110, 198);">&lt;/dependency&gt;</span>
-</span><span id="__span-5-25" style="box-sizing: inherit;"><a id="__codelineno-5-25" name="__codelineno-5-25" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-5-25" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a><span class="w" style="box-sizing: inherit;">        </span><span class="cm" style="box-sizing: inherit; color: rgba(0, 0, 0, 0.54);">&lt;!-- The ADK dev web UI to debug your agent --&gt;</span>
-</span><span id="__span-5-26" style="box-sizing: inherit;"><a id="__codelineno-5-26" name="__codelineno-5-26" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-5-26" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a><span class="w" style="box-sizing: inherit;">        </span><span class="nt" style="box-sizing: inherit; color: rgb(63, 110, 198);">&lt;dependency&gt;</span>
-</span><span id="__span-5-27" style="box-sizing: inherit;"><a id="__codelineno-5-27" name="__codelineno-5-27" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-5-27" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a><span class="w" style="box-sizing: inherit;">            </span><span class="nt" style="box-sizing: inherit; color: rgb(63, 110, 198);">&lt;groupId&gt;</span>com.google.adk<span class="nt" style="box-sizing: inherit; color: rgb(63, 110, 198);">&lt;/groupId&gt;</span>
-</span><span id="__span-5-28" style="box-sizing: inherit;"><a id="__codelineno-5-28" name="__codelineno-5-28" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-5-28" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a><span class="w" style="box-sizing: inherit;">            </span><span class="nt" style="box-sizing: inherit; color: rgb(63, 110, 198);">&lt;artifactId&gt;</span>google-adk-dev<span class="nt" style="box-sizing: inherit; color: rgb(63, 110, 198);">&lt;/artifactId&gt;</span>
-</span><span id="__span-5-29" style="box-sizing: inherit;"><a id="__codelineno-5-29" name="__codelineno-5-29" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-5-29" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a><span class="w" style="box-sizing: inherit;">            </span><span class="nt" style="box-sizing: inherit; color: rgb(63, 110, 198);">&lt;version&gt;</span>0.3.0<span class="nt" style="box-sizing: inherit; color: rgb(63, 110, 198);">&lt;/version&gt;</span>
-</span><span id="__span-5-30" style="box-sizing: inherit;"><a id="__codelineno-5-30" name="__codelineno-5-30" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-5-30" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a><span class="w" style="box-sizing: inherit;">        </span><span class="nt" style="box-sizing: inherit; color: rgb(63, 110, 198);">&lt;/dependency&gt;</span>
-</span><span id="__span-5-31" style="box-sizing: inherit;"><a id="__codelineno-5-31" name="__codelineno-5-31" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-5-31" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a><span class="w" style="box-sizing: inherit;">    </span><span class="nt" style="box-sizing: inherit; color: rgb(63, 110, 198);">&lt;/dependencies&gt;</span>
-</span><span id="__span-5-32" style="box-sizing: inherit;"><a id="__codelineno-5-32" name="__codelineno-5-32" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-5-32" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a>
-</span><span id="__span-5-33" style="box-sizing: inherit;"><a id="__codelineno-5-33" name="__codelineno-5-33" href="https://google.github.io/adk-docs/get-started/java/#__codelineno-5-33" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms; position: absolute; visibility: hidden;"></a><span class="nt" style="box-sizing: inherit; color: rgb(63, 110, 198);">&lt;/project&gt;</span>
-</span></code></pre></div></details>
-
-### Set your API key[¶](https://google.github.io/adk-docs/get-started/java/#set-your-api-key) 设置您的 API 密钥 [¶](https://google.github.io/adk-docs/get-started/java/#set-your-api-key)
-
-This project uses the Gemini API, which requires an API key. If you don't already have Gemini API key, create a key in Google AI Studio on the [API Keys](https://aistudio.google.com/app/apikey) page.
-本项目使用 Gemini API，需要 API 密钥。如果您 如果您还没有 Gemini API 密钥，请在 Google AI Studio 中创建一个密钥。 [API 密钥](https://aistudio.google.com/app/apikey)页面。
-
-In a terminal window, write your API key into your `.env` file of your project to set environment variables:
-在终端窗口中，将您的 API 密钥写入项目的 `.env` 文件中，以设置环境变量：
-
-[MacOS / Linux](https://google.github.io/adk-docs/get-started/java/#macos--linux_1)[Windows 视窗](https://google.github.io/adk-docs/get-started/java/#windows_1)
-
-**Update: my_agent/.env 更新：my_agent/.env**
-
-```
-echo 'export GOOGLE_API_KEY="YOUR_API_KEY"' > .env
-```
-
-<details class="tip" open="" style="box-sizing: inherit; background-color: rgb(255, 255, 255); border: 0.075rem solid rgb(0, 191, 165); border-radius: 0.2rem; box-shadow: rgba(0, 0, 0, 0.05) 0px 4.4px 11px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1.1px 0px; color: rgba(0, 0, 0, 0.87); display: flow-root; font-size: 0.64rem; margin: 1.5625em 0px; padding: 0px 0.6rem; break-inside: avoid; transition: box-shadow 125ms; overflow: visible; font-family: &quot;Google Sans&quot;, -apple-system, &quot;system-ui&quot;, Helvetica, Arial, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"><summary style="box-sizing: border-box; background-color: rgba(0, 191, 165, 0.1); border-top: none; border-right: none; border-bottom: none; border-left: 0.2rem none; border-image: initial; font-weight: 700; margin: 0px -0.6rem; padding: 0.4rem 1.8rem 0.4rem 2rem; position: relative; cursor: pointer; display: block; min-height: 1rem; overflow: hidden; border-top-left-radius: 0.1rem; border-top-right-radius: 0.1rem; -webkit-tap-highlight-color: transparent; outline: none;">Using other AI models with ADK<font class="notranslate immersive-translate-target-wrapper" lang="zh-CN" style="box-sizing: inherit;"><br style="box-sizing: inherit;"><font class="notranslate immersive-translate-target-translation-theme-none immersive-translate-target-translation-block-wrapper-theme-none immersive-translate-target-translation-block-wrapper" data-immersive-translate-translation-element-mark="1" style="box-sizing: inherit;"><font class="notranslate immersive-translate-target-inner immersive-translate-target-translation-theme-none-inner" data-immersive-translate-translation-element-mark="1" style="box-sizing: inherit;">将其他 AI 模型与 ADK 结合使用</font></font></font></summary><p style="box-sizing: border-box; margin-bottom: 0.6rem;">ADK supports the use of many generative AI models. For more information on configuring other models in ADK agents, see<span>&nbsp;</span><a href="https://google.github.io/adk-docs/agents/models" style="box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(64, 81, 181); text-decoration: none; word-break: break-word; transition: color 125ms;">Models &amp; Authentication</a>.<font class="notranslate immersive-translate-target-wrapper" lang="zh-CN" style="box-sizing: inherit;"><br style="box-sizing: inherit;"><font class="notranslate immersive-translate-target-translation-theme-none immersive-translate-target-translation-block-wrapper-theme-none immersive-translate-target-translation-block-wrapper" data-immersive-translate-translation-element-mark="1" style="box-sizing: inherit;"><font class="notranslate immersive-translate-target-inner immersive-translate-target-translation-theme-none-inner" data-immersive-translate-translation-element-mark="1" style="box-sizing: inherit;">ADK 支持使用多种生成式 AI 模型。更多信息请见下文。 有关在 ADK 代理中配置其他模型的信息，请参阅 模型与认证。</font></font></font></p></details>
-
-### Create an agent command-line interface[¶](https://google.github.io/adk-docs/get-started/java/#create-an-agent-command-line-interface) 创建代理命令行界面 [¶](https://google.github.io/adk-docs/get-started/java/#create-an-agent-command-line-interface)
-
-Create a `AgentCliRunner.java` class to allow you to run and interact with `HelloTimeAgent` from the command line. This code shows how to create a `RunConfig` object to run the agent and a `Session` object to interact with the running agent.
-创建一个 `AgentCliRunner.java` 类，以便您可以运行并与它交互 从命令行创建 `HelloTimeAgent` 。以下代码展示了如何创建一个 HelloTimeAgent。 `RunConfig` 对象用于运行代理， `Session` 对象用于与正在运行的代理进行交互。
-
-**my_agent/src/main/java/com/example/agent/AgentCliRunner.java**
-
-```
-package com.example.agent;
-
-import com.google.adk.agents.RunConfig;
-import com.google.adk.events.Event;
-import com.google.adk.runner.InMemoryRunner;
-import com.google.adk.sessions.Session;
-import com.google.genai.types.Content;
-import com.google.genai.types.Part;
-import io.reactivex.rxjava3.core.Flowable;
-import java.util.Scanner;
-
-import static java.nio.charset.StandardCharsets.UTF_8;
-
-public class AgentCliRunner {
-
-    public static void main(String[] args) {
-        RunConfig runConfig = RunConfig.builder().build();
-        InMemoryRunner runner = new InMemoryRunner(HelloTimeAgent.ROOT_AGENT);
-
-        Session session = runner
-                .sessionService()
-                .createSession(runner.appName(), "user1234")
-                .blockingGet();
-
-        try (Scanner scanner = new Scanner(System.in, UTF_8)) {
-            while (true) {
-                System.out.print("\nYou > ");
-                String userInput = scanner.nextLine();
-                if ("quit".equalsIgnoreCase(userInput)) {
-                    break;
-                }
-
-                Content userMsg = Content.fromParts(Part.fromText(userInput));
-                Flowable<Event> events = runner.runAsync(session.userId(), session.id(), userMsg, runConfig);
-
-                System.out.print("\nAgent > ");
-                events.blockingForEach(event -> {
-                    if (event.finalResponse()) {
-                        System.out.println(event.stringifyContent());
-                    }
-                });
-            }
-        }
-    }
-}
-```
-
-### 在 Spring Boot 中正确加载 GOOGLE_API_KEY
-
-- Java 不会自动读取 `.env` 文件，需在启动前将变量导入到进程环境。
-- 任选其一：
-  - 终端导出并运行：
-    - `export GOOGLE_API_KEY="YOUR_API_KEY"`
-    - `mvn -pl google-adk-app spring-boot:run`
-  - 使用 `.env` 文件并一次性导出：
-    - `set -a; source google-adk-app/.env; set +a`
-    - `mvn -pl google-adk-app spring-boot:run`
-  - IntelliJ Run Configuration：在 Run/Debug Configurations 的 Environment variables 添加 `GOOGLE_API_KEY=YOUR_API_KEY`，再运行 Spring Boot。
-
-- 若未设置，应用会在创建代理时抛出 `Missing GOOGLE_API_KEY environment variable`，请按上面步骤设置后重启。
-
-## Run your agent[¶](https://google.github.io/adk-docs/get-started/java/#run-your-agent) 运行你的代理 [¶](https://google.github.io/adk-docs/get-started/java/#run-your-agent)
-
-You can run your ADK agent using the interactive command-line interface `AgentCliRunner` class you defined or the ADK web user interface provided by the ADK using the `AdkWebServer` class. Both these options allow you to test and interact with your agent.
-您可以使用交互式命令行界面运行 ADK 代理。 您可以使用您定义的 `AgentCliRunner` 类，也可以使用 ADK 提供的基于 `AdkWebServer` 类的 ADK Web 用户界面。这两种方式都允许您测试代理并与之交互。
-
-### Run with command-line interface[¶](https://google.github.io/adk-docs/get-started/java/#run-with-command-line-interface) 使用命令行界面运行 [¶](https://google.github.io/adk-docs/get-started/java/#run-with-command-line-interface)
-
-Run your agent with the command-line interface `AgentCliRunner` class using the following Maven command:
-使用以下 Maven 命令，通过命令行界面 `AgentCliRunner` 类运行您的代理：
-
-```
-# Remember to load keys and settings: source .env OR env.bat
-mvn compile exec:java -Dexec.mainClass="com.example.agent.AgentCliRunner"
-```
-
-![adk-run.png](https://google.github.io/adk-docs/assets/adk-run.png)
-
-### Run with web interface[¶](https://google.github.io/adk-docs/get-started/java/#run-with-web-interface) 使用网页界面运行 [¶](https://google.github.io/adk-docs/get-started/java/#run-with-web-interface)
-
-Run your agent with the ADK web interface using the following Maven command:
-使用以下 Maven 命令通过 ADK Web 界面运行代理：
-
-```
-# Remember to load keys and settings: source .env OR env.bat
-mvn compile exec:java \
-    -Dexec.mainClass="com.google.adk.web.AdkWebServer" \
-    -Dexec.args="--adk.agents.source-dir=target --server.port=8000"
-```
-
-This command starts a web server with a chat interface for your agent. You can access the web interface at (http://localhost:8000). Select your agent at the upper left corner and type a request.
-此命令会启动一个带有聊天界面的 Web 服务器，供您的客服人员使用。您可以通过 (http://localhost:8000) 访问该 Web 界面。在左上角选择您的客服人员，然后输入请求。
-
-![adk-web-dev-ui-chat.png](https://google.github.io/adk-docs/assets/adk-web-dev-ui-chat.png)
-
-## Next: Build your agent[¶](https://google.github.io/adk-docs/get-started/java/#next-build-your-agent) 接下来：构建您的代理 [¶](https://google.github.io/adk-docs/get-started/java/#next-build-your-agent)
-
-Now that you have ADK installed and your first agent running, try building your own agent with our build guides:
-现在您已经安装了 ADK 并且您的第一个代理程序正在运行，请尝试使用我们的构建指南构建您自己的代理程序：
+### 2. 工程说明
