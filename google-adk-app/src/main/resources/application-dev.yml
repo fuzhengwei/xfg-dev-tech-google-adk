@@ -9,6 +9,6 @@ logging:
 # Google ADK Configuration
 google:
   api:
-    key: ${GOOGLE_API_KEY:}
+    key: AIzaSyDF6JnvFx7xWEsARSGosNmvTU3ZoCwo
   cloud:
-    project: ${GOOGLE_CLOUD_PROJECT:}
+    project: xfg-google-adk

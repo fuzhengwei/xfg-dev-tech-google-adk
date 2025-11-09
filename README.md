@@ -202,6 +202,20 @@ public class AgentCliRunner {
 }
 ```
 
+### 在 Spring Boot 中正确加载 GOOGLE_API_KEY
+
+- Java 不会自动读取 `.env` 文件，需在启动前将变量导入到进程环境。
+- 任选其一：
+  - 终端导出并运行：
+    - `export GOOGLE_API_KEY="YOUR_API_KEY"`
+    - `mvn -pl google-adk-app spring-boot:run`
+  - 使用 `.env` 文件并一次性导出：
+    - `set -a; source google-adk-app/.env; set +a`
+    - `mvn -pl google-adk-app spring-boot:run`
+  - IntelliJ Run Configuration：在 Run/Debug Configurations 的 Environment variables 添加 `GOOGLE_API_KEY=YOUR_API_KEY`，再运行 Spring Boot。
+
+- 若未设置，应用会在创建代理时抛出 `Missing GOOGLE_API_KEY environment variable`，请按上面步骤设置后重启。
+
 ## Run your agent[¶](https://google.github.io/adk-docs/get-started/java/#run-your-agent) 运行你的代理 [¶](https://google.github.io/adk-docs/get-started/java/#run-your-agent)
 
 You can run your ADK agent using the interactive command-line interface `AgentCliRunner` class you defined or the ADK web user interface provided by the ADK using the `AdkWebServer` class. Both these options allow you to test and interact with your agent.

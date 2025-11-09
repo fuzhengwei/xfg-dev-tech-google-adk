@@ -4,11 +4,14 @@ import com.google.adk.JsonBaseModel;
 import com.google.adk.agents.BaseAgent;
 import com.google.adk.agents.LlmAgent;
 import com.google.adk.events.Event;
+import com.google.adk.models.Gemini;
 import com.google.adk.runner.InMemoryRunner;
 import com.google.adk.sessions.Session;
 import com.google.adk.tools.mcp.McpTool;
 import com.google.adk.tools.mcp.McpToolset;
+import com.google.genai.Client;
 import com.google.genai.types.Content;
+import com.google.genai.types.HttpOptions;
 import com.google.genai.types.Part;
 import io.modelcontextprotocol.client.transport.ServerParameters;
 import io.reactivex.rxjava3.core.Flowable;
@@ -35,15 +38,23 @@ public class AutoAgentTest {
 
     @Before
     public void init() {
-
         List<McpTool> mcpTools = new ArrayList<>();
         mcpTools.addAll(mcp_elk());
         mcpTools.addAll(mcp_filesystem());
 
         agent = LlmAgent.builder()
                 .name(NAME)
-                .model("gemini-2.0-flash")
-
+                .model(Gemini.builder()
+                        .apiClient(Client.builder()
+                                .apiKey("AIzaSyDF6JnvFx7xWEsARSGosNmvTU3ZoCwo-mc")
+                                .httpOptions(HttpOptions
+                                        .builder()
+                                        .baseUrl("https://generativelanguage.googleapis.com")
+                                        .timeout(500000)
+                                        .build())
+                                .build())
+                        .modelName("gemini-2.0-flash")
+                        .build())
                 .description("You are an interactive CLI tool that helps users with software engineering tasks. Use the instructions below and the tools available to you to assist the user.")
                 .instruction(
                         """

@@ -121,6 +121,20 @@
                 <configuration>
                     <mainClass>cn.bugstack.xfg.dev.tech.Application</mainClass>
                     <layout>JAR</layout>
+                    <!-- Allow reflective access for environment injection on Java 9+ -->
+                    <jvmArguments>--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED</jvmArguments>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+                <configuration>
+                    <environmentVariables>
+                        <GOOGLE_API_KEY>AIzaSyDF6JnvFx7xWEsARSGosNmvTU3ZoCwo-mc</GOOGLE_API_KEY>
+                        <GOOGLE_CLOUD_PROJECT>xfg-google-adk</GOOGLE_CLOUD_PROJECT>
+                    </environmentVariables>
+                    <skipTests>false</skipTests>
                 </configuration>
             </plugin>
         </plugins>
