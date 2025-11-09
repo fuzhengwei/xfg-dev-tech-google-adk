@@ -41,4 +41,5 @@ public class AgentController {
         List<String> outputs = agentService.chat(req.getUserId(), sessionId, req.getMessage());
         return new ChatResponse(sessionId, String.join("\n", outputs));
     }
+
 }

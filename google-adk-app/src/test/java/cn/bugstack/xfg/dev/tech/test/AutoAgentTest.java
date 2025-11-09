@@ -47,7 +47,7 @@ public class AutoAgentTest {
     public void init() {
         List<McpTool> mcpTools = new ArrayList<>();
         mcpTools.addAll(mcp_elk());
-        mcpTools.addAll(mcp_filesystem());
+//        mcpTools.addAll(mcp_filesystem());
 
         agent = LlmAgent.builder()
                 .name(NAME)
