@@ -33,8 +33,6 @@ public class AgentController {
 
     @PostMapping(path = "/chat", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ChatResponse chat(@RequestBody ChatRequest req) {
-
-
         String sessionId = req.getSessionId();
         if (sessionId == null || sessionId.isEmpty()) {
             sessionId = agentService.createOrGetSession(req.getUserId());
