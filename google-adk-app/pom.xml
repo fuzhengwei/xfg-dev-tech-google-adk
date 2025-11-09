@@ -121,8 +121,6 @@
                 <configuration>
                     <mainClass>cn.bugstack.xfg.dev.tech.Application</mainClass>
                     <layout>JAR</layout>
-                    <!-- Allow reflective access for environment injection on Java 9+ -->
-                    <jvmArguments>--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED</jvmArguments>
                 </configuration>
             </plugin>
             <plugin>
