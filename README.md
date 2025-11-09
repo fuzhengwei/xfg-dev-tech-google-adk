@@ -1,4 +1,4 @@
-# Google Agent ADK，智能体也有现成的框架了！
+# Google Agent ADK，20分钟，帮你搭建一个简单智能体
 
 作者：小傅哥
 <br/>博客：[https://bugstack.cn](https://bugstack.cn)
@@ -19,14 +19,16 @@
 
 ## 一、官网资料
 
-官网：[https://google.github.io/adk-docs/](https://google.github.io/adk-docs/)
+- 官网：[https://google.github.io/adk-docs/](https://google.github.io/adk-docs/)
+- 搭建：[https://google.github.io/adk-docs/get-started/](https://google.github.io/adk-docs/get-started/)
 
 <div align="center">
-    <img src="/Users/fuzhengwei/Desktop/road-map-google-adk-01.png" width="750px">
+    <img src="https://bugstack.cn/images/roadmap/tutorial/road-map-google-adk-01.png" width="750px">
 </div>
 
 - ADK 以轻便化构建 Ai Agent 智能体，解决智能体开发的复杂流程而设计。目前支持 Python、Java、Go 3种语言对应的技术框架。
 - 整个文档完整的描述了，智能体的创建和运行、工具的调用（tools、function、mcp）、可观测性以及 A2A 协议等。
+- Agent Development Kit (ADK) is designed to empower developers to quickly build, manage, evaluate and deploy AI-powered agents. These quick start guides get you set up and running a simple agent in less than **20 minutes**.
 
 ## 二、工程实践
 
@@ -41,7 +43,7 @@
 ### 2. 工程说明
 
 <div align="center">
-    <img src="/Users/fuzhengwei/Desktop/road-map-google-adk-02.png" width="950px">
+    <img src="https://bugstack.cn/images/roadmap/tutorial/road-map-google-adk-02.png" width="950px">
 </div>
 
 - 工程地址：[https://github.com/fuzhengwei/xfg-dev-tech-google-adk](https://github.com/fuzhengwei/xfg-dev-tech-google-adk)
@@ -306,7 +308,7 @@ public class AgentController {
 ##### 2.4.2 页面对接
 
 <div align="center">
-    <img src="/Users/fuzhengwei/Desktop/road-map-google-adk-03.png" width="950px">
+    <img src="https://bugstack.cn/images/roadmap/tutorial/road-map-google-adk-03.png" width="950px">
 </div>
 
 - 把服务端的接口对接到页面。
@@ -316,7 +318,7 @@ public class AgentController {
 ### 1. 部署 elk 日志服务
 
 <div align="center">
-    <img src="/Users/fuzhengwei/Desktop/road-map-google-adk-04.png" width="950px">
+    <img src="https://bugstack.cn/images/roadmap/tutorial/road-map-google-adk-04.png" width="950px">
 </div>
 
 - 整个 Ai Agent 案例，配置了 ELK 作为日志分析的基础，所以最好配置下。
@@ -326,11 +328,11 @@ public class AgentController {
 ### 2. 启动服务访问页面
 
 <div align="center">
-    <img src="/Users/fuzhengwei/Desktop/road-map-google-adk-05.png" width="700px">
+    <img src="https://bugstack.cn/images/roadmap/tutorial/road-map-google-adk-05.png" width="700px">
 </div>
 
 <div align="center">
-    <img src="/Users/fuzhengwei/Desktop/road-map-google-adk-06.png" width="700px">
+    <img src="https://bugstack.cn/images/roadmap/tutorial/road-map-google-adk-06.png" width="700px">
 </div>
 
 - 以上演示了，使用 Ai Agent 进行 ELK 日志分析，通过对话可以看到，最终我们可以拿到系统的日志数据。
