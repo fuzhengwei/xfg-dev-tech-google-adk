@@ -17,6 +17,8 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public class AgentService {
 
+    private static final String NAME = "multi_tool_agent";
+
     private final InMemoryRunner runner;
     private final Map<String, String> userSessions = new ConcurrentHashMap<>();
 
@@ -24,11 +26,11 @@ public class AgentService {
         this.runner = new InMemoryRunner(baseAgent);
     }
 
-    public String createOrGetSession(String name, String userId) {
+    public String createOrGetSession(String userId) {
         return userSessions.computeIfAbsent(userId, uid -> {
             Session session = runner
                     .sessionService()
-                    .createSession(name, uid)
+                    .createSession(NAME, uid)
                     .blockingGet();
             return session.id();
         });

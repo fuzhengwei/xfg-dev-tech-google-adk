@@ -24,7 +24,7 @@ public class AgentController {
 
     @PostMapping(path = "/session", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public CreateSessionResponse createSession(@RequestBody CreateSessionRequest req) {
-        String sessionId = agentService.createOrGetSession(req.getName(), req.getUserId());
+        String sessionId = agentService.createOrGetSession(req.getUserId());
         return new CreateSessionResponse(sessionId);
     }
 
@@ -32,7 +32,7 @@ public class AgentController {
     public ChatResponse chat(@RequestBody ChatRequest req) {
         String sessionId = req.getSessionId();
         if (sessionId == null || sessionId.isEmpty()) {
-            sessionId = agentService.createOrGetSession(req.getName(), req.getUserId());
+            sessionId = agentService.createOrGetSession(req.getUserId());
         }
         List<String> outputs = agentService.chat(req.getUserId(), sessionId, req.getMessage());
         return new ChatResponse(sessionId, String.join("\n", outputs));

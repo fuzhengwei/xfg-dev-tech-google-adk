@@ -17,7 +17,7 @@
   let API_BASE = API_CANDIDATES[0];
   const state = {
     name: 'web-client',
-    userId: getOrCreateUserId(),
+    userId: createEphemeralUserId(),
     sessionId: null,
     sending: false,
   };
@@ -37,14 +37,14 @@
   // Page load: fetch sessionId
   createSession();
 
-  function getOrCreateUserId(){
-    const k = 'agent_user_id';
-    let id = localStorage.getItem(k);
-    if (!id) {
-      id = `user-${Math.random().toString(36).slice(2, 10)}`;
-      localStorage.setItem(k, id);
-    }
-    return id;
+  function getDefaultUserId(){
+    return 'xiaofuge';
+  }
+
+  function createEphemeralUserId(){
+    const base = getDefaultUserId();
+    const suffix = Math.random().toString(36).slice(2, 10);
+    return `${base}-${suffix}`;
   }
 
   async function createSession(){
@@ -103,9 +103,9 @@
 
   async function newChat(){
     // Start a fresh conversation: new userId -> new session
-    state.userId = `user-${Math.random().toString(36).slice(2, 10)}`;
+    // Use an ephemeral userId to force a new backend session
+    state.userId = createEphemeralUserId();
     state.sessionId = null;
-    localStorage.setItem('agent_user_id', state.userId);
     els.messages.innerHTML = '';
     appendSystem('已开启新会话');
     await createSession();
