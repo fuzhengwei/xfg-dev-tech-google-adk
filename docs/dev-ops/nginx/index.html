@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Agent 对话</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="app-header">
+        <div class="title">
+          <span class="logo">🤖</span>
+          <div>
+            <div class="name">AI Agent</div>
+            <div class="sub">简洁 · 美观 · 高效</div>
+          </div>
+        </div>
+        <div class="session">
+          <span id="sessionStatus" class="badge">初始化中…</span>
+          <button id="newChatBtn" class="btn ghost" title="开启新会话">新会话</button>
+        </div>
+      </header>
+
+      <main class="chat">
+        <ul id="messages" class="messages"></ul>
+      </main>
+
+      <footer class="composer">
+        <textarea id="input" class="input" rows="1" placeholder="输入你的问题，按 Enter 发送，Shift+Enter 换行"></textarea>
+        <button id="sendBtn" class="btn primary">发送</button>
+      </footer>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+  </html>
